@@ -76,12 +76,6 @@ export class SechubHistoricalPullStack extends Stack {
         KMS_KEY_ID: s3_kms_key.keyArn,
         SSM_PARAMETER_COUNT: sechub_count_parameter.parameterName
       },
-      // vpc: sechub_automation_vpc,
-      // securityGroups: [sechub_workload_sg],
-      // vpcSubnets:
-      // {
-      //   subnetType: ec2.SubnetType.PRIVATE_ISOLATED                                                                                                               
-      // }
     });
 
     const get_sec_hub_finding_policy = new iam.PolicyDocument({
@@ -191,6 +185,7 @@ export class SechubHistoricalPullStack extends Stack {
     // SNS Topic
     const sec_hub_status_topic = new Topic(this, 'sec_hub_status_topic', {
       displayName: 'SNS Topic for Security Hub Export Status.',
+      topicName: 'Security_Hub_Export_Status'
     });
 
     // CloudWatch EventBridge rule for Step Function status change
