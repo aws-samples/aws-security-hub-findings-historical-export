@@ -6,16 +6,13 @@ import uuid
 from botocore.exceptions import ClientError
 import datetime
 import logging
-import glob
 import os
 import time
 
 logger=logging.getLogger()
 logger.setLevel(logging.INFO)
 
-REGION = os.environ['REGION']
 S3_BUCKET = os.environ['S3_BUCKET']
-KMS_KEY_ID = os.environ['KMS_KEY_ID']
 SSM_PARAMETER_COUNT = os.environ['SSM_PARAMETER_COUNT']
 
 sechub = boto3.client('securityhub')
@@ -119,7 +116,6 @@ def lambda_handler(event, context):
         next_token = ''
         date_filter=event['StartDate']
         logger.info("NextToken not detected for Security Hub findings.")
-    sechub = sechub_assume_role()
     finding_filter = create_filter(date_filter)
     runs = 25
     for a in range(0, runs, 1):
