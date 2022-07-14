@@ -1,5 +1,3 @@
-from hashlib import sha3_384
-from operator import ne
 import boto3
 import json
 import uuid
